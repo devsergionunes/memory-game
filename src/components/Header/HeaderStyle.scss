@@ -1,0 +1,23 @@
+.header {
+  width: 100%;
+  background: var(--cart);
+  padding: 0 4.5rem;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  height: 15vh;
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 4.5rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    color: var(--logo-color);
+    text-shadow: 0 0 0 1 rgba(0, 0, 0, 0.5);
+  }
+}

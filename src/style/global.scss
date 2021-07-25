@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  --red: #f52f4d;
+  --blue: #5429cc;
+  --blue-light: #6933ff;
+  --green: #33cc95;
+
+  --logo-color: #5fa6ba;
+
+  --text-title: #363f5f;
+  --cart: #151d38;
+  --text-body: #969cb3;
+
+  --background: #f0f2f5;
+  --shape: #fff;
+
+  @media (max-width: 1080px) {
+    font-size: 93.75%; // 15px
+  }
+  @media (max-width: 720px) {
+    font-size: 87.5%; // 14px
+  }
+  -webkit-font-smoothing: antialiased;
+}
+body,
+button,
+textarea,
+input {
+  font-family: "Poppins";
+  font-weight: 400;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong {
+  font-weight: 600;
+}
+button {
+  cursor: pointer;
+}
+[disabled] {
+  cursor: not-allowed;
+}
+body {
+  max-height: 100vh;
+  background: var(--text-body);
+}
+main {
+  width: 100%;
+  height: 85vh;
+  padding: 0 4.5rem;
+  display: flex;
+  align-items: center;
+}
