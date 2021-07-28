@@ -1,7 +1,7 @@
 {
   "name": "memory-game",
   "version": "1.0.0",
-  "homepage": "memory-game/",
+  "homepage": "https://devsergionunes.github.io/memory-game/",
   "description": "jogo de memoria visual",
   "main": "index.js",
   "scripts": {
