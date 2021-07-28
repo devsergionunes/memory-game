@@ -1,111 +1,56 @@
-import imgJavascript from '../../assests/imagens/javascript.svg'
-import imgCmaisMais from '../../assests/imagens/cmais.svg'
-import imgCss from '../../assests/imagens/css3.svg'
-import imgGithub from '../../assests/imagens/github.svg'
-import imgHtml from '../../assests/imagens/html-5.svg'
-import imgJava from '../../assests/imagens/java-coffee-cup.svg'
-import imgReact from '../../assests/imagens/react.svg'
-import imgPython from '../../assests/imagens/python.svg'
-import imgNode from '../../assests/imagens/nodejs.svg'
-import './Roomstyle.scss'
 import React from 'react'
+import { useDates } from '../../hooks/useDates';
+import { ImgsGame } from '../ImgsGame/ImgsGame';
 
-const imgArray =[
-  {
-    image: imgJavascript,
-    alt: 'javacript icon'
-  },
-  {
-    image: imgCmaisMais,
-    alt: 'C++ icon'
-  },
-  {
-    image: imgCss,
-    alt: 'css icon'
-  },
-  {
-    image: imgGithub,
-    alt: 'github icon'
-  },
-  {
-    image: imgHtml,
-    alt: 'html icon'
-  },
-  {
-    image: imgJava,
-    alt: 'java icon'
-  },
-  {
-    image: imgReact,
-    alt: 'react icon'
-  },
-  {
-    image: imgPython,
-    alt: 'python icon'
-  },
-  {
-    image: imgNode,
-    alt: 'node icon'
-  },
-]
-const imgList = [...imgArray, ...imgArray]
+import './Roomstyle.scss'
 
-let randomNumber;
-let tmp;
-for (let i = imgList.length; i;) {
-    randomNumber = Math.random() * i-- | 0;
-    tmp = imgList[randomNumber];
-    imgList[randomNumber] = imgList[i];
-  imgList[i] = tmp;
-}
 export function Room() {
-  const [imgComparatorOne, setImgComparatorOne] = React.useState(false)
-  let imgComparatorTwo;
+  const { user } = useDates()
+  const [isReset , setIsReset] = React.useState(false)
+  const [isCronometro, setIsCronometro] = React.useState(false)
+  const cronometro = React.useRef(null)
+  const timerSpan = React.useRef(null)
 
-  function comparator(target) {
-    if (!imgComparatorOne) {
-      target.classList.add('visible')
-      setImgComparatorOne(target)
-      imgComparatorTwo = ''
-      //console.log(target.children)
-      //console.log(target.childNodes)
-      return;
-    } else {
-      target.classList.add('visible')
-      imgComparatorTwo = target
-      setTimeout(() => {
-        if (imgComparatorOne.childNodes[0].alt === imgComparatorTwo.childNodes[0].alt ) {
-          console.log('sim')
-          setImgComparatorOne(false)
-          imgComparatorTwo = ''
+  React.useEffect(() => {
+    let secondes = 0
+    let minutes = 0
+    if (isCronometro) {
+      cronometro.current = setInterval(() => {
+        if (!timerSpan.current) clearInterval(cronometro.current);
+        if (secondes === 60) {
+          secondes = 0
+          minutes++
         } else {
-          console.log('nao')
-          imgComparatorOne.classList.remove('visible')
-          imgComparatorTwo.classList.remove('visible')
-          setImgComparatorOne(false)
-          imgComparatorTwo = ''
+          secondes++
         }
-      }, 500)
-
+        timerSpan.current.innerText = `00:${minutes < 10 ? `0${minutes}` : minutes }:${secondes < 10 ?  `0${secondes}` : secondes }`
+      }, 1000)
     }
+    else {
+      clearInterval(cronometro.current)
+    }
+  }, [isCronometro])
+  
+  function hendleReset() {
+    timerSpan.current.innerText = '00:00:00'
+    setIsReset(true)
   }
 
   return (
     <div className='room-container'>
       <section className='details'>
-        <h2>Sergio</h2>
-        <span>00:00:00</span>
+        <h2>{user}</h2>
+        <div>
+          <span ref={timerSpan}>00:00:00</span>
+          <button onClick={hendleReset}>Reiniciar</button>
+        </div>
       </section>
-      <section className='imagens'>
-        {imgList.map((img, index) => (
-          <div key={index} onClick={({target}) => comparator(target)}>
-            <img
-              src={img.image}
-              alt={img.alt}
-            />
-          </div>
-        ))}
-      </section>
+      <ImgsGame
+        setIsCronometro={setIsCronometro}
+        timeSpan={timerSpan.current?.innerText}
+        isReset={isReset}
+        setIsReset={setIsReset}
+      />
     </div>
   )
 }

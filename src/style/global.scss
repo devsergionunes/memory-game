@@ -4,25 +4,21 @@
   box-sizing: border-box;
 }
 html {
-  --red: #f52f4d;
-  --blue: #5429cc;
-  --blue-light: #6933ff;
-  --green: #33cc95;
-
-  --logo-color: #5fa6ba;
-
-  --text-title: #363f5f;
   --cart: #151d38;
-  --text-body: #969cb3;
-
-  --background: #f0f2f5;
+  --red: #f52f4d;
+  --logo-color: #5fa6ba;
+  --text-title: #363f5f;
+  --backgound-body: #969cb3;
   --shape: #fff;
 
   @media (max-width: 1080px) {
     font-size: 93.75%; // 15px
   }
   @media (max-width: 720px) {
-    font-size: 87.5%; // 14px
+    font-size: 87.3%; // 14px
+  }
+  @media (max-width: 600px) {
+    font-size: 75%;
   }
   -webkit-font-smoothing: antialiased;
 }
@@ -50,12 +46,22 @@ button {
 }
 body {
   max-height: 100vh;
-  background: var(--text-body);
+  background: var(--backgound-body);
 }
 main {
   width: 100%;
   height: 85vh;
   padding: 0 4.5rem;
+  padding-bottom: 1.5rem;
   display: flex;
   align-items: center;
+
+  @media (min-width: 721) and (max-width: 800px) {
+    padding: 0 2rem;
+  }
+  @media (max-width: 720px) {
+    padding: 0 1rem;
+    min-height: 100vh;
+    height: auto;
+  }
 }
